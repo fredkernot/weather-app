@@ -61,14 +61,7 @@ def build_weather_query(city_input, imperial=False):
     return url
 
 def get_weather_data(query_url):
-    """Makes an API request to a URL and returns the data as a Python object.
-
-    Args:
-        query_url (str): URL formatted for OpenWeather's city name endpoint
-
-    Returns:
-        dict: Weather information for a specific city
-    """
+    """Makes an API request to a URL and returns the data as a Python object."""
     try:
         response = request.urlopen(query_url)
     except error.HTTPError as http_error:
@@ -78,6 +71,8 @@ def get_weather_data(query_url):
             sys.exit("Can't find weather data for this city")
         else:
             sys.exit(f"Something went wrong... ({http_error.code})")
+    except error.URLError:
+        sys.exit("Network error. Please check your connection.")
 
     data = response.read()
     try:
@@ -86,16 +81,14 @@ def get_weather_data(query_url):
         sys.exit("Couldn't read the server response.")
 
 def _get_api_key() :
-    """Fetches the API key from the configuration file.
-     
-      Expects a configuration file names "secrets.ini" with structure:
-       
-        [open weather]
-         api_key=<your api_key>
-    """
+    """Fetches the API key from the configuration file."""
+
     config = ConfigParser()
     config.read("secrets.ini")
-    return config["openweather"]["api_key"]
+    try:
+        return config["openweather"]["api_key"]
+    except KeyError:
+        sys.exit("Missing API key in secrets.ini.")
 
 def display_weather_info(weather_data, imperial =False):
     """Prints formatted weather information about a city.
