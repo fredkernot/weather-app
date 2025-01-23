@@ -91,7 +91,7 @@ def _get_api_key() :
       Expects a configuration file names "secrets.ini" with structure:
        
         [open weather]
-         api_key=4a1380bdaa9f83342d533121db4d32c2 
+         api_key=<your api_key>
     """
     config = ConfigParser()
     config.read("secrets.ini")
