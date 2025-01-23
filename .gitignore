@@ -1,3 +1,6 @@
 # .gitignore
 
+[openweather]
 secrets.ini
+
+__pycache__/
