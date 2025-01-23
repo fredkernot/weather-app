@@ -57,4 +57,12 @@ python3 weather.py "new york" --imperial
 
 #### Sample Output
 ```plaintext
-London  🌧️
+London  🔆 Clear Sky    (19°C)
+```
+
+## 🛑 Error Handling
+
+The tool provides helpful error messages for:
+- Invalid city names.
+- Missing or incorrect API keys.
+- Network connectivity issues.
